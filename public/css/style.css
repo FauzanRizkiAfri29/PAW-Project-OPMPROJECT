@@ -106,3 +106,37 @@ body {
   .fitur-grid { grid-template-columns: 1fr; }
   .site-nav a { margin: 0 10px; }
 }
+
+
+/* Form, hasil AI, dan pesan error */
+.form-row { display: flex; gap: 8px; margin-top: 12px; }
+.form-row input[type="text"] {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #b9d3cf;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.form-row input[type="text"]:focus,
+.hasil-area:focus { outline: 2px solid #99f6e4; border-color: #0f766e; }
+button.btn { border: 0; font-size: 1rem; cursor: pointer; }
+button.btn:disabled { background: #9db9ab; cursor: not-allowed; }
+.hasil-area {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #b9d3cf;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  resize: vertical;
+}
+.aksi-row { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.alert-error {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: #fde8e8;
+  color: #9b1c1c;
+  border-radius: 8px;
+}
+@media (max-width: 768px) { .form-row { flex-direction: column; } }

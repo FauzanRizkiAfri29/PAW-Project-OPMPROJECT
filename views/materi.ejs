@@ -1,0 +1,46 @@
+<%- include('partials/header', { title: title, active: 'materi' }) %>
+
+  <main class="content">
+
+    <div class="left">
+
+      <section class="card">
+        <h2>Generator Ringkasan Materi PAI</h2>
+        <p class="muted">
+          Masukkan topik PAI, lalu AI akan membuat draf ringkasan materi untuk siswa kelas IV.
+          Draf ini wajib kamu periksa dan boleh kamu edit sebelum dipakai.
+        </p>
+
+        <form id="materi-form" class="form-row">
+          <input type="text" id="topik" maxlength="100" required
+                 placeholder="Contoh: Rukun Islam, Kisah Nabi Ibrahim, Adab makan..." autocomplete="off">
+          <button type="submit" id="buat-btn" class="btn">Buat Materi</button>
+        </form>
+
+        <div id="alert-error" class="alert-error" hidden></div>
+        <p id="loading" class="muted" hidden>AI sedang menyusun materi, mohon tunggu...</p>
+      </section>
+
+      <section class="card" id="hasil-card" hidden>
+        <h2>Draf Materi</h2>
+        <textarea id="hasil" rows="18" class="hasil-area"></textarea>
+        <div class="aksi-row">
+          <button type="button" id="salin-btn" class="btn">Salin Teks</button>
+          <span id="salin-info" class="muted"></span>
+        </div>
+        <p class="note">Draf dibuat AI dan bisa keliru. Periksa isinya sebelum dibagikan kepada siswa.</p>
+      </section>
+
+    </div>
+
+    <aside class="card">
+      <h2>Tips</h2>
+      <p class="muted">Topik yang spesifik menghasilkan materi yang lebih tepat, misalnya "Sifat wajib bagi Allah" daripada "Akidah".</p>
+      <p class="muted">Topik di luar PAI akan ditolak.</p>
+    </aside>
+
+  </main>
+
+  <script src="/js/materi.js"></script>
+
+<%- include('partials/footer') %>

@@ -7,6 +7,7 @@ const logger = require('./middlewares/logger');
 const pageRoutes = require('./routes/page.routes');
 const apiRoutes = require('./routes/api.routes');
 const chatRoutes = require('./routes/chat.routes');
+const materiRoutes = require('./routes/materi.routes');
 const pageController = require('./controllers/page.controller');
 
 const app = express();
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/api/ai', chatRoutes);
+app.use('/api/ai', materiRoutes);
 app.use('/api', apiRoutes);
 app.use('/', pageRoutes);
 
