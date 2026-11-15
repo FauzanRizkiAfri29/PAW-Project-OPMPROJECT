@@ -76,4 +76,4 @@ async function generateSoal(topik, jumlah) {
   return soal;
 }
 
-module.exports = { generateSoal };
+module.exports = { generateSoal, normalisasiSoal };
