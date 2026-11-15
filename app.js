@@ -12,6 +12,7 @@ const chatRoutes = require('./routes/chat.routes');
 const materiRoutes = require('./routes/materi.routes');
 const soalRoutes = require('./routes/soal.routes');
 const riwayatRoutes = require('./routes/riwayat.routes');
+const kuisRoutes = require('./routes/kuis.routes');
 const pageController = require('./controllers/page.controller');
 
 const app = express();
@@ -34,6 +35,7 @@ app.use('/api/ai', chatRoutes);
 app.use('/api/ai', materiRoutes);
 app.use('/api/ai', soalRoutes);
 app.use('/api/riwayat', riwayatRoutes);
+app.use('/api/kuis', kuisRoutes);
 app.use('/api', apiRoutes);
 app.use('/', pageRoutes);
 
