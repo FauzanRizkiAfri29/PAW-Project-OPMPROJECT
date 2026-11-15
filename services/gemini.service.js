@@ -6,20 +6,19 @@ const RETRYABLE_STATUS = [429, 500, 503];
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function generateReply(message, context) {
+// Fungsi umum: kirim isi + instruksi sistem ke Gemini, ulangi otomatis jika layanan sibuk.
+// Dipakai bersama oleh chat, generator materi, dan generator soal.
+async function generateText(contents, systemInstruction) {
   let lastError;
 
   for (let attempt = 1; attempt <= MAX_RETRY; attempt++) {
     try {
       const response = await ai.models.generateContent({
         model: MODEL,
-        contents: message,
-        config: { systemInstruction: buildSystemInstruction(context) },
+        contents,
+        config: { systemInstruction },
       });
-      return (
-        response.text ||
-        "Maaf, aku belum bisa menjawab itu. Coba tanyakan dengan cara lain atau tanya Bapak/Ibu guru ya."
-      );
+      return response.text || null;
     } catch (err) {
       lastError = err;
       const status = Number(err.status || err.code);
@@ -35,4 +34,12 @@ async function generateReply(message, context) {
   throw lastError;
 }
 
-module.exports = { generateReply };
+async function generateReply(message, context) {
+  const text = await generateText(message, buildSystemInstruction(context));
+  return (
+    text ||
+    "Maaf, aku belum bisa menjawab itu. Coba tanyakan dengan cara lain atau tanya Bapak/Ibu guru ya."
+  );
+}
+
+module.exports = { generateText, generateReply };
