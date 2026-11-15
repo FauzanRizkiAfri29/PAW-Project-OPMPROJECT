@@ -8,7 +8,7 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Fungsi umum: kirim isi + instruksi sistem ke Gemini, ulangi otomatis jika layanan sibuk.
 // Dipakai bersama oleh chat, generator materi, dan generator soal.
-async function generateText(contents, systemInstruction) {
+async function generateText(contents, systemInstruction, extraConfig = {}) {
   let lastError;
 
   for (let attempt = 1; attempt <= MAX_RETRY; attempt++) {
@@ -16,7 +16,7 @@ async function generateText(contents, systemInstruction) {
       const response = await ai.models.generateContent({
         model: MODEL,
         contents,
-        config: { systemInstruction },
+        config: { systemInstruction, ...extraConfig },
       });
       return response.text || null;
     } catch (err) {
@@ -34,6 +34,7 @@ async function generateText(contents, systemInstruction) {
   throw lastError;
 }
 
+// Fungsi khusus chat siswa
 async function generateReply(message, context) {
   const text = await generateText(message, buildSystemInstruction(context));
   return (
