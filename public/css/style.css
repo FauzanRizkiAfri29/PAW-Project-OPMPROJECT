@@ -1,0 +1,108 @@
+/* Gaya dasar mengikuti referensi PAW-Week2-Kelompok1-KelasE (tema teal) */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f2f7f6;
+  color: #1f2d27;
+  line-height: 1.6;
+}
+
+/* Header & navigasi */
+.site-header {
+  background-color: #0f766e;
+  color: white;
+  text-align: center;
+  padding: 30px 16px;
+}
+.site-header h1 { margin: 0 0 6px; }
+.site-header p { margin: 0; opacity: 0.9; }
+
+.site-nav {
+  background-color: #115e59;
+  text-align: center;
+  padding: 15px;
+}
+.site-nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 20px;
+  padding-bottom: 4px;
+}
+.site-nav a:hover,
+.site-nav a.active { border-bottom: 2px solid #99f6e4; }
+
+/* Layout konten: kolom kiri (utama) + aside (informasi) */
+.content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 15px;
+  padding: 15px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.content.single { grid-template-columns: 1fr; }
+.left { display: flex; flex-direction: column; gap: 15px; }
+
+.card {
+  background-color: white;
+  padding: 24px 30px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+.card h2 { margin-top: 0; color: #0f766e; }
+.card h3 { margin: 18px 0 8px; color: #115e59; }
+.center { text-align: center; }
+
+/* Daftar fitur */
+.fitur-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fitur-item {
+  border: 1px solid #d5e6e3;
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #f8fcfb;
+}
+.fitur-item p { margin: 6px 0 0; font-size: 0.9rem; color: #475b55; }
+.fitur-top { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; }
+
+.badge {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: white;
+  white-space: nowrap;
+}
+.badge-must { background: #0f766e; }
+.badge-should { background: #b45309; }
+.badge-could { background: #64748b; }
+
+/* Aside, tombol, catatan */
+.muted { color: #52645b; font-size: 0.9rem; }
+.note { font-size: 0.8rem; color: #52645b; margin-top: 16px; }
+.btn {
+  display: inline-block;
+  background: #0f766e;
+  color: white;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+}
+.btn:hover { background: #115e59; }
+
+/* Footer */
+.site-footer {
+  background-color: #0f766e;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 15px;
+}
+.site-footer p { margin: 0; }
+
+/* Responsif: di layar kecil jadi satu kolom */
+@media (max-width: 768px) {
+  .content { grid-template-columns: 1fr; }
+  .fitur-grid { grid-template-columns: 1fr; }
+  .site-nav a { margin: 0 10px; }
+}

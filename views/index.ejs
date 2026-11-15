@@ -1,0 +1,49 @@
+<%- include('partials/header', { title: title, active: 'beranda' }) %>
+
+  <main class="content">
+
+    <div class="left">
+
+      <section class="card">
+        <h2>Pendahuluan</h2>
+        <p>
+          TanyaPAI-Ai dikembangkan dari studi kasus di SD Negeri Bagelen tentang
+          pemanfaatan AI dalam pembelajaran Pendidikan Agama Islam (PAI).
+        </p>
+        <p>
+          AI di sini tidak hanya membantu guru menyiapkan materi dan soal, tetapi juga
+          menjadi teman belajar yang berinteraksi langsung dengan siswa kelas IV.
+        </p>
+      </section>
+
+      <article class="card">
+        <h2>Fitur TanyaPAI-Ai</h2>
+
+        <% ['Untuk Guru', 'Untuk Siswa'].forEach(function (kat) { %>
+          <h3><%= kat %></h3>
+          <div class="fitur-grid">
+            <% produk.filter(function (p) { return p.kategori === kat; }).forEach(function (p) { %>
+              <div class="fitur-item">
+                <div class="fitur-top">
+                  <strong><%= p.nama %></strong>
+                  <span class="badge badge-<%= p.prioritas.toLowerCase() %>"><%= p.prioritas %></span>
+                </div>
+                <p><%= p.deskripsi %></p>
+              </div>
+            <% }); %>
+          </div>
+        <% }); %>
+      </article>
+
+    </div>
+
+    <aside class="card">
+      <h2>Informasi</h2>
+      <p class="muted">Server aktif: <%= uptime %></p>
+      <a class="btn" href="/chat">Mulai Tanya PAI</a>
+      <p class="note">Jawaban AI bisa keliru. Selalu periksa kembali dan tanyakan kepada guru PAI.</p>
+    </aside>
+
+  </main>
+
+<%- include('partials/footer') %>

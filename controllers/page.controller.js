@@ -1,13 +1,11 @@
 const ProdukModel = require('../models/produk.model');
-const { appName } = require('../config/app.config');
-const { formatRupiah, formatUptime } = require('../utils/format');
+const { formatUptime } = require('../utils/format');
 
-// GET /  -> halaman frontend (EJS) dengan data produk dari Model
+// GET /  -> halaman beranda (EJS) dengan data fitur dari Model
 exports.home = (req, res) => {
   res.render('index', {
-    title: appName,
+    title: 'Beranda',
     produk: ProdukModel.getAll(),
-    formatRupiah,
     uptime: formatUptime(process.uptime()),
   });
 };
