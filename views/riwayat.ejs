@@ -1,0 +1,45 @@
+<%- include('partials/header', { title: title, active: 'riwayat' }) %>
+
+  <main class="content">
+
+    <div class="left">
+
+      <section class="card">
+        <h2>Riwayat Materi dan Soal</h2>
+        <p class="muted">
+          Daftar materi dan soal yang sudah kamu simpan. Soal yang sudah diperiksa bisa dijadikan kuis untuk siswa.
+        </p>
+
+        <div class="filter-row">
+          <label for="filter-jenis">Tampilkan:</label>
+          <select id="filter-jenis">
+            <option value="">Semua</option>
+            <option value="materi">Materi</option>
+            <option value="soal">Soal</option>
+          </select>
+        </div>
+
+        <div id="alert-error" class="alert-error" hidden></div>
+        <p id="loading" class="muted" hidden>Memuat riwayat...</p>
+        <p id="kosong" class="muted" hidden>Belum ada riwayat tersimpan.</p>
+        <div id="daftar-riwayat"></div>
+      </section>
+
+      <section class="card" id="detail-card" hidden>
+        <h2 id="detail-judul">Detail</h2>
+        <div id="detail-isi"></div>
+      </section>
+
+    </div>
+
+    <aside class="card">
+      <h2>Tips</h2>
+      <p class="muted">Klik <b>Jadikan Kuis</b> pada soal yang sudah kamu periksa. Soal itu akan muncul sebagai kuis di langkah berikutnya.</p>
+      <p class="muted">Menghapus riwayat tidak bisa dibatalkan.</p>
+    </aside>
+
+  </main>
+
+  <script src="/js/riwayat.js"></script>
+
+<%- include('partials/footer') %>

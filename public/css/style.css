@@ -200,3 +200,19 @@ button.btn.btn-sekunder { background: #fff; color: #0f766e; border: 1px solid #0
 button.btn.btn-sekunder:hover { background: #e6f4f1; }
 button.btn.btn-sekunder:disabled { background: #f1f5f4; color: #6b7f78; border-color: #b9c9c4; }
 .aksi-row { flex-wrap: wrap; }
+
+
+/* Halaman Riwayat */
+.filter-row { display: flex; align-items: center; gap: 8px; margin: 12px 0; }
+.riwayat-item {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 12px; border: 1px solid #d5e6e3; border-radius: 10px; margin-bottom: 10px; background: #f8fcfb;
+}
+.riwayat-aksi { display: flex; gap: 8px; flex-wrap: wrap; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; font-weight: bold; }
+.badge-materi { background: #e0f2fe; color: #075985; }
+.badge-soal { background: #fef3c7; color: #92400e; }
+.badge-kuis { background: #dcfce7; color: #166534; }
+button.btn.btn-bahaya { background: #fff; color: #b91c1c; border: 1px solid #b91c1c; }
+button.btn.btn-bahaya:hover { background: #fde8e8; }
+.materi-teks { white-space: pre-wrap; word-wrap: break-word; font-family: inherit; line-height: 1.6; margin: 0; }
