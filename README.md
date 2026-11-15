@@ -109,6 +109,15 @@ views/            template EJS
 public/           CSS dan JavaScript sisi klien
 ```
 
+## Keselarasan dengan PRD
+
+Seluruh fitur berada dalam In scope pada PRD Kelompok 1. Catatan implementasi:
+
+- Fitur Riwayat dikerjakan sebelum Kuis, karena kuis dibuat dari soal yang sudah diperiksa guru
+  dan perlu tempat penyimpanan.
+- Tanya jawab (`/chat`) dan Kuis (`/kuis`) diimplementasikan sesuai bagian In scope PRD.
+
+
 ## Batasan versi ini
 
 - Hanya mata pelajaran PAI.
