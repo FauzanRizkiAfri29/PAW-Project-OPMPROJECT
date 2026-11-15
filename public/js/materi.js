@@ -6,7 +6,11 @@ const errorEl = document.getElementById('alert-error');
 const hasilCard = document.getElementById('hasil-card');
 const hasilEl = document.getElementById('hasil');
 const salinBtn = document.getElementById('salin-btn');
+const simpanBtn = document.getElementById('simpan-btn');
 const salinInfo = document.getElementById('salin-info');
+
+// Topik saat materi dibuat (input boleh diubah setelahnya, tapi riwayat memakai topik aslinya)
+let topikTerakhir = '';
 
 function setLoading(aktif) {
   buatBtn.disabled = aktif;
@@ -38,7 +42,10 @@ form.addEventListener('submit', async (e) => {
       throw new Error(json.message || 'Gagal membuat materi.');
     }
 
+    topikTerakhir = topik;
     hasilEl.value = json.data.materi;
+    simpanBtn.disabled = false;
+    simpanBtn.textContent = 'Simpan ke Riwayat';
     hasilCard.hidden = false;
     hasilCard.scrollIntoView({ behavior: 'smooth' });
   } catch (err) {
@@ -58,4 +65,29 @@ salinBtn.addEventListener('click', async () => {
     salinInfo.textContent = 'Teks dipilih, tekan Ctrl+C untuk menyalin.';
   }
   setTimeout(() => { salinInfo.textContent = ''; }, 2500);
+});
+
+// Simpan materi (termasuk hasil edit guru) ke riwayat
+simpanBtn.addEventListener('click', async () => {
+  errorEl.hidden = true;
+  simpanBtn.disabled = true;
+  simpanBtn.textContent = 'Menyimpan...';
+
+  try {
+    const res = await fetch('/api/riwayat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jenis: 'materi', topik: topikTerakhir, isi: hasilEl.value }),
+    });
+    const json = await res.json();
+
+    if (!res.ok || !json.success) {
+      throw new Error(json.message || 'Gagal menyimpan ke riwayat.');
+    }
+    simpanBtn.textContent = 'Tersimpan \u2713';
+  } catch (err) {
+    simpanBtn.disabled = false;
+    simpanBtn.textContent = 'Simpan ke Riwayat';
+    tampilkanError(err.message || 'Tidak dapat terhubung ke server.');
+  }
 });

@@ -193,3 +193,10 @@ button.btn:disabled { background: #9db9ab; cursor: not-allowed; }
 .msg.bot { align-self: flex-start; background: #e6f4f1; border-bottom-left-radius: 4px; }
 .msg.typing { font-style: italic; color: #52645b; }
 .msg.error { background: #fde8e8; color: #9b1c1c; }
+
+
+/* Tombol sekunder (Simpan ke Riwayat) */
+button.btn.btn-sekunder { background: #fff; color: #0f766e; border: 1px solid #0f766e; }
+button.btn.btn-sekunder:hover { background: #e6f4f1; }
+button.btn.btn-sekunder:disabled { background: #f1f5f4; color: #6b7f78; border-color: #b9c9c4; }
+.aksi-row { flex-wrap: wrap; }

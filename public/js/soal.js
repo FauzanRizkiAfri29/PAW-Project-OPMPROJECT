@@ -7,9 +7,12 @@ const errorEl = document.getElementById('alert-error');
 const hasilCard = document.getElementById('hasil-card');
 const daftarEl = document.getElementById('daftar-soal');
 const salinBtn = document.getElementById('salin-btn');
+const simpanBtn = document.getElementById('simpan-btn');
 const salinInfo = document.getElementById('salin-info');
 
 let soalTerakhir = [];
+// Topik saat soal dibuat (input boleh diubah setelahnya, tapi riwayat memakai topik aslinya)
+let topikTerakhir = '';
 
 function setLoading(aktif) {
   buatBtn.disabled = aktif;
@@ -84,8 +87,11 @@ form.addEventListener('submit', async (e) => {
       throw new Error(json.message || 'Gagal membuat soal.');
     }
 
+    topikTerakhir = topik;
     soalTerakhir = json.data.soal;
     renderSoal(soalTerakhir);
+    simpanBtn.disabled = false;
+    simpanBtn.textContent = 'Simpan ke Riwayat';
     hasilCard.hidden = false;
     hasilCard.scrollIntoView({ behavior: 'smooth' });
   } catch (err) {
@@ -104,4 +110,29 @@ salinBtn.addEventListener('click', async () => {
     salinInfo.textContent = 'Gagal menyalin otomatis. Salin manual dari daftar soal.';
   }
   setTimeout(() => { salinInfo.textContent = ''; }, 2500);
+});
+
+// Simpan soal yang sudah diperiksa guru ke riwayat
+simpanBtn.addEventListener('click', async () => {
+  errorEl.hidden = true;
+  simpanBtn.disabled = true;
+  simpanBtn.textContent = 'Menyimpan...';
+
+  try {
+    const res = await fetch('/api/riwayat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jenis: 'soal', topik: topikTerakhir, isi: soalTerakhir }),
+    });
+    const json = await res.json();
+
+    if (!res.ok || !json.success) {
+      throw new Error(json.message || 'Gagal menyimpan ke riwayat.');
+    }
+    simpanBtn.textContent = 'Tersimpan \u2713';
+  } catch (err) {
+    simpanBtn.disabled = false;
+    simpanBtn.textContent = 'Simpan ke Riwayat';
+    tampilkanError(err.message || 'Tidak dapat terhubung ke server.');
+  }
 });
