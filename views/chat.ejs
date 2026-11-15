@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= appName %> - Tanya PAI</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: #eef6f1; color: #1f2d27; }
+    .wrap { max-width: 720px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; padding: 16px; }
+    header h1 { margin: 0 0 4px; font-size: 1.4rem; color: #1b6b4a; }
+    header p { margin: 0 0 12px; font-size: 0.9rem; color: #52645b; }
+    details { background: #fff; border: 1px solid #cfe3d7; border-radius: 10px; padding: 8px 12px; margin-bottom: 12px; }
+    summary { cursor: pointer; font-size: 0.9rem; color: #1b6b4a; }
+    details textarea { width: 100%; margin-top: 8px; padding: 8px; border: 1px solid #cfe3d7; border-radius: 8px; font-family: inherit; resize: vertical; }
+    #chat-box { flex: 1; background: #fff; border: 1px solid #cfe3d7; border-radius: 12px; padding: 12px; overflow-y: auto; min-height: 320px; max-height: 60vh; display: flex; flex-direction: column; gap: 10px; }
+    .msg { max-width: 85%; padding: 10px 14px; border-radius: 14px; line-height: 1.5; white-space: pre-wrap; word-wrap: break-word; }
+    .msg.user { align-self: flex-end; background: #1b6b4a; color: #fff; border-bottom-right-radius: 4px; }
+    .msg.bot { align-self: flex-start; background: #e7f3ec; border-bottom-left-radius: 4px; }
+    .msg.typing { font-style: italic; color: #52645b; }
+    .msg.error { background: #fde8e8; color: #9b1c1c; }
+    form { display: flex; gap: 8px; margin-top: 12px; }
+    input[type="text"] { flex: 1; padding: 12px; border: 1px solid #cfe3d7; border-radius: 10px; font-size: 1rem; }
+    button { padding: 12px 20px; border: 0; border-radius: 10px; background: #1b6b4a; color: #fff; font-size: 1rem; cursor: pointer; }
+    button:disabled { background: #9db9ab; cursor: not-allowed; }
+    .note { font-size: 0.78rem; color: #52645b; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Tanya PAI</h1>
+      <p>Tanyakan materi Pendidikan Agama Islam kepada asisten belajar.</p>
+    </header>
+
+    <details>
+      <summary>Materi dari guru (opsional)</summary>
+      <textarea id="context" rows="4" maxlength="3000"
+        placeholder="Tempel materi di sini agar AI menjawab berdasarkan materi ini..."></textarea>
+    </details>
+
+    <div id="chat-box">
+      <div class="msg bot">Assalamualaikum! Aku TanyaPAI. Silakan tanya tentang materi PAI ya.</div>
+    </div>
+
+    <form id="chat-form">
+      <input type="text" id="message" maxlength="500" placeholder="Tulis pertanyaanmu..." autocomplete="off" required />
+      <button type="submit" id="send-btn">Kirim</button>
+    </form>
+    <p class="note">Jawaban AI bisa keliru. Tanyakan kepada guru PAI jika kamu ragu.</p>
+  </div>
+
+  <script>
+    const form = document.getElementById('chat-form');
+    const input = document.getElementById('message');
+    const contextEl = document.getElementById('context');
+    const sendBtn = document.getElementById('send-btn');
+    const box = document.getElementById('chat-box');
+
+    function addMessage(text, className) {
+      const div = document.createElement('div');
+      div.className = 'msg ' + className;
+      div.textContent = text; // textContent: aman dari injeksi HTML
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+      return div;
+    }
+
+    function setLoading(isLoading) {
+      sendBtn.disabled = isLoading;
+      input.disabled = isLoading;
+      sendBtn.textContent = isLoading ? 'Mengirim...' : 'Kirim';
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const message = input.value.trim();
+      if (!message) return;
+
+      const context = contextEl.value.trim();
+      const payload = context ? { message, context } : { message };
+
+      addMessage(message, 'user');
+      input.value = '';
+      setLoading(true);
+      const typing = addMessage('TanyaPAI sedang mengetik...', 'bot typing');
+
+      try {
+        const res = await fetch('/api/ai/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const json = await res.json();
+        typing.remove();
+
+        if (!res.ok || !json.success) {
+          throw new Error(json.message || 'Terjadi kesalahan.');
+        }
+        addMessage(json.data.reply, 'bot');
+      } catch (err) {
+        typing.remove();
+        const pesan = err instanceof TypeError
+          ? 'Tidak dapat terhubung ke server. Periksa koneksi lalu coba lagi.'
+          : err.message;
+        addMessage(pesan, 'bot error');
+      } finally {
+        setLoading(false);
+        input.focus();
+      }
+    });
+  </script>
+</body>
+</html>
