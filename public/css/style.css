@@ -140,3 +140,26 @@ button.btn:disabled { background: #9db9ab; cursor: not-allowed; }
   border-radius: 8px;
 }
 @media (max-width: 768px) { .form-row { flex-direction: column; } }
+
+
+/* Generator soal */
+.form-row select {
+  padding: 10px 12px;
+  border: 1px solid #b9d3cf;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+}
+.soal-item {
+  border: 1px solid #d5e6e3;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  background: #f8fcfb;
+}
+.soal-item h3 { margin: 0 0 6px; }
+.soal-tanya { margin: 0 0 8px; font-weight: bold; }
+.pilihan { list-style: none; margin: 0 0 8px; padding: 0; }
+.pilihan li { padding: 6px 10px; border-radius: 6px; margin-bottom: 4px; border: 1px solid transparent; }
+.pilihan li.benar { background: #dcfce7; border-color: #16a34a; font-weight: bold; }
+.kunci { margin: 0 0 4px; color: #166534; font-weight: bold; }

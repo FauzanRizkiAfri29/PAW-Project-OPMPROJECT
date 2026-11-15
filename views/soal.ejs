@@ -1,0 +1,51 @@
+<%- include('partials/header', { title: title, active: 'soal' }) %>
+
+  <main class="content">
+
+    <div class="left">
+
+      <section class="card">
+        <h2>Generator Soal Latihan PAI</h2>
+        <p class="muted">
+          Pilih topik dan jumlah soal. AI akan membuat soal pilihan ganda lengkap dengan kunci jawaban
+          dan pembahasan. Periksa semua soal sebelum dipakai.
+        </p>
+
+        <form id="soal-form" class="form-row">
+          <input type="text" id="topik" maxlength="100" required
+                 placeholder="Contoh: Rukun Iman, Adab kepada orang tua..." autocomplete="off">
+          <select id="jumlah" aria-label="Jumlah soal">
+            <option value="3">3 soal</option>
+            <option value="5" selected>5 soal</option>
+            <option value="10">10 soal</option>
+          </select>
+          <button type="submit" id="buat-btn" class="btn">Buat Soal</button>
+        </form>
+
+        <div id="alert-error" class="alert-error" hidden></div>
+        <p id="loading" class="muted" hidden>AI sedang menyusun soal, mohon tunggu...</p>
+      </section>
+
+      <section class="card" id="hasil-card" hidden>
+        <h2>Soal untuk Diperiksa</h2>
+        <div id="daftar-soal"></div>
+        <div class="aksi-row">
+          <button type="button" id="salin-btn" class="btn">Salin Semua Soal</button>
+          <span id="salin-info" class="muted"></span>
+        </div>
+        <p class="note">Soal dibuat AI dan bisa keliru. Pastikan kunci jawaban benar sebelum diberikan kepada siswa.</p>
+      </section>
+
+    </div>
+
+    <aside class="card">
+      <h2>Tips</h2>
+      <p class="muted">Gunakan topik yang sama dengan materi yang sudah kamu buat agar soal sesuai pembelajaran.</p>
+      <p class="muted">Kunci jawaban ditandai warna hijau.</p>
+    </aside>
+
+  </main>
+
+  <script src="/js/soal.js"></script>
+
+<%- include('partials/footer') %>
