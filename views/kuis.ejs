@@ -1,0 +1,54 @@
+<%- include('partials/header', { title: title, active: 'kuis' }) %>
+
+  <main class="content">
+
+    <div class="left">
+
+      <section class="card" id="pilih-card">
+        <h2>Kuis PAI</h2>
+        <p class="muted">Pilih kuis yang disiapkan gurumu, lalu jawab semua soal dengan teliti.</p>
+        <div id="alert-error" class="alert-error" hidden></div>
+        <p id="loading" class="muted" hidden>Memuat kuis...</p>
+        <p id="kosong" class="muted" hidden>Belum ada kuis yang tersedia. Tanyakan kepada gurumu.</p>
+        <div id="daftar-kuis"></div>
+      </section>
+
+      <section class="card" id="kerja-card" hidden>
+        <h2 id="kerja-judul">Kuis</h2>
+        <div id="soal-wadah"></div>
+        <div class="aksi-row">
+          <button type="button" id="kirim-btn" class="btn">Kirim Jawaban</button>
+          <button type="button" id="batal-btn" class="btn btn-sekunder">Kembali</button>
+        </div>
+      </section>
+
+      <section class="card" id="hasil-card" hidden>
+        <h2>Hasil Kuis</h2>
+        <div class="skor-box">
+          <div class="skor-angka" id="skor-angka">0</div>
+          <div>
+            <div id="skor-ringkas"></div>
+            <div class="muted" id="skor-pesan"></div>
+          </div>
+        </div>
+        <div id="hasil-wadah"></div>
+        <div class="aksi-row">
+          <button type="button" id="ulang-btn" class="btn">Ulangi Kuis</button>
+          <button type="button" id="daftar-btn" class="btn btn-sekunder">Pilih Kuis Lain</button>
+        </div>
+      </section>
+
+    </div>
+
+    <aside class="card">
+      <h2>Petunjuk</h2>
+      <p class="muted">Pilih satu jawaban untuk setiap soal.</p>
+      <p class="muted">Setelah dikirim, kamu bisa melihat jawaban yang benar dan pembahasannya.</p>
+      <p class="muted">Soal dibuat AI dan sudah diperiksa gurumu.</p>
+    </aside>
+
+  </main>
+
+  <script src="/js/kuis.js"></script>
+
+<%- include('partials/footer') %>

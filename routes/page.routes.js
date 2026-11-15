@@ -4,6 +4,7 @@ const chatController = require('../controllers/chat.controller');
 const materiController = require('../controllers/materi.controller');
 const soalController = require('../controllers/soal.controller');
 const riwayatController = require('../controllers/riwayat.controller');
+const kuisController = require('../controllers/kuis.controller');
 
 const router = express.Router();
 
@@ -12,5 +13,6 @@ router.get('/chat', chatController.renderChatPage);
 router.get('/guru/materi', materiController.renderMateriPage);
 router.get('/guru/soal', soalController.renderSoalPage);
 router.get('/guru/riwayat', riwayatController.renderRiwayatPage);
+router.get('/kuis', kuisController.renderKuisPage);
 
 module.exports = router;
