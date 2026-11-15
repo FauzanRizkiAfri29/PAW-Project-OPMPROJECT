@@ -163,3 +163,33 @@ button.btn:disabled { background: #9db9ab; cursor: not-allowed; }
 .pilihan li { padding: 6px 10px; border-radius: 6px; margin-bottom: 4px; border: 1px solid transparent; }
 .pilihan li.benar { background: #dcfce7; border-color: #16a34a; font-weight: bold; }
 .kunci { margin: 0 0 4px; color: #166534; font-weight: bold; }
+
+
+/* Halaman Tanya PAI (chat) */
+.konteks { margin: 12px 0; }
+.konteks summary { cursor: pointer; color: #0f766e; font-size: 0.9rem; }
+.konteks textarea { margin-top: 8px; }
+.chat-box {
+  background: #f8fcfb;
+  border: 1px solid #d5e6e3;
+  border-radius: 10px;
+  padding: 12px;
+  min-height: 320px;
+  max-height: 60vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.msg {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.msg.user { align-self: flex-end; background: #0f766e; color: #fff; border-bottom-right-radius: 4px; }
+.msg.bot { align-self: flex-start; background: #e6f4f1; border-bottom-left-radius: 4px; }
+.msg.typing { font-style: italic; color: #52645b; }
+.msg.error { background: #fde8e8; color: #9b1c1c; }

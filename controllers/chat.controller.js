@@ -1,5 +1,4 @@
 const { generateReply } = require("../services/gemini.service");
-const { appName } = require("../config/app.config");
 
 async function chat(req, res) {
   try {
@@ -27,8 +26,9 @@ async function chat(req, res) {
   }
 }
 
+// GET /chat
 function renderChatPage(req, res) {
-  res.render("chat", { appName });
+  res.render("chat", { title: "Tanya PAI" });
 }
 
 module.exports = { chat, renderChatPage };
