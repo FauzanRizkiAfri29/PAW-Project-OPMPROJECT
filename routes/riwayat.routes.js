@@ -8,5 +8,6 @@ router.post('/', validateRiwayatInput, riwayatController.create);
 router.get('/', riwayatController.list);
 router.get('/:id', riwayatController.detail);
 router.delete('/:id', riwayatController.remove);
+router.patch('/:id/kuis', riwayatController.setKuis);
 
 module.exports = router;

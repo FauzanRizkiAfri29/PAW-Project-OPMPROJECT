@@ -97,4 +97,35 @@ async function remove(req, res) {
   }
 }
 
-module.exports = { create, list, detail, remove };
+// GET /guru/riwayat -> halaman riwayat (EJS)
+function renderRiwayatPage(req, res) {
+  res.render('riwayat', { title: 'Riwayat' });
+}
+
+// PATCH /api/riwayat/:id/kuis  body: { untukKuis: true|false }
+async function setKuis(req, res) {
+  const id = parseId(req);
+  if (!id) {
+    return res.status(400).json({ success: false, message: 'ID tidak valid.' });
+  }
+  const { untukKuis } = req.body || {};
+  if (typeof untukKuis !== 'boolean') {
+    return res.status(400).json({ success: false, message: 'untukKuis harus true atau false.' });
+  }
+  try {
+    const r = await Riwayat.findByPk(id);
+    if (!r) {
+      return res.status(404).json({ success: false, message: 'Riwayat tidak ditemukan.' });
+    }
+    if (r.jenis !== 'soal') {
+      return res.status(400).json({ success: false, message: 'Hanya soal yang bisa dijadikan kuis.' });
+    }
+    r.untukKuis = untukKuis;
+    await r.save();
+    return res.json({ success: true, data: bentukItem(r, false) });
+  } catch (err) {
+    return tanganiError(res, err, 'Gagal mengubah status kuis.');
+  }
+}
+
+module.exports = { create, list, detail, remove, setKuis, renderRiwayatPage };
